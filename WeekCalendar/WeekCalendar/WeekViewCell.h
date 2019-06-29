@@ -1,15 +1,17 @@
 //
-//  ViewController.h
+//  WeekViewCell.h
 //  WeekCalendar
 //
-//  Created by Anna Ershova on 6/28/19.
+//  Created by Anna Ershova on 6/29/19.
 //  Copyright © 2019 Anna Ershova. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
 
+
+@interface WeekViewCell : UICollectionViewCell
 
 @end
+
 

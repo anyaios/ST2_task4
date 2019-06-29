@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "WeekCalendarViewController.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    _window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    WeekCalendarViewController *vc = [[WeekCalendarViewController alloc] initWithNibName:@"WeekCalendarViewController" bundle:nil];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    _window.rootViewController = nc;
+    [_window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;
 }

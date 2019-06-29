@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B3E1FEC22C7A1A100B61B82 /* WeekCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3E1FEA22C7A1A100B61B82 /* WeekCalendarViewController.m */; };
+		0B3E1FED22C7A1A100B61B82 /* WeekCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3E1FEB22C7A1A100B61B82 /* WeekCalendarViewController.xib */; };
+		0BCC4A4622C7A41300B67F92 /* WeekViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC4A4422C7A41300B67F92 /* WeekViewCell.m */; };
+		0BCC4A4722C7A41300B67F92 /* WeekViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0BCC4A4522C7A41300B67F92 /* WeekViewCell.xib */; };
+		0BD8334622C7D33700EDD45A /* UIColor+CustomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD8334522C7D33700EDD45A /* UIColor+CustomColor.m */; };
 		0BECDBCC22C65B90009989A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BECDBCB22C65B90009989A5 /* AppDelegate.m */; };
-		0BECDBCF22C65B90009989A5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BECDBCE22C65B90009989A5 /* ViewController.m */; };
 		0BECDBD222C65B90009989A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BECDBD022C65B90009989A5 /* Main.storyboard */; };
 		0BECDBD422C65B94009989A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0BECDBD322C65B94009989A5 /* Assets.xcassets */; };
 		0BECDBD722C65B94009989A5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0BECDBD522C65B94009989A5 /* LaunchScreen.storyboard */; };
@@ -18,11 +22,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B3E1FE922C7A1A100B61B82 /* WeekCalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeekCalendarViewController.h; sourceTree = "<group>"; };
+		0B3E1FEA22C7A1A100B61B82 /* WeekCalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeekCalendarViewController.m; sourceTree = "<group>"; };
+		0B3E1FEB22C7A1A100B61B82 /* WeekCalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekCalendarViewController.xib; sourceTree = "<group>"; };
+		0BCC4A4322C7A41300B67F92 /* WeekViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeekViewCell.h; sourceTree = "<group>"; };
+		0BCC4A4422C7A41300B67F92 /* WeekViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeekViewCell.m; sourceTree = "<group>"; };
+		0BCC4A4522C7A41300B67F92 /* WeekViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekViewCell.xib; sourceTree = "<group>"; };
+		0BD8334422C7D33700EDD45A /* UIColor+CustomColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+CustomColor.h"; sourceTree = "<group>"; };
+		0BD8334522C7D33700EDD45A /* UIColor+CustomColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+CustomColor.m"; sourceTree = "<group>"; };
 		0BECDBC722C65B90009989A5 /* WeekCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeekCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0BECDBCA22C65B90009989A5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0BECDBCB22C65B90009989A5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		0BECDBCD22C65B90009989A5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		0BECDBCE22C65B90009989A5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		0BECDBD122C65B90009989A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0BECDBD322C65B94009989A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0BECDBD622C65B94009989A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -65,15 +75,21 @@
 		0BECDBC922C65B90009989A5 /* WeekCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				0B3E1FE922C7A1A100B61B82 /* WeekCalendarViewController.h */,
+				0B3E1FEA22C7A1A100B61B82 /* WeekCalendarViewController.m */,
+				0B3E1FEB22C7A1A100B61B82 /* WeekCalendarViewController.xib */,
+				0BCC4A4322C7A41300B67F92 /* WeekViewCell.h */,
+				0BCC4A4422C7A41300B67F92 /* WeekViewCell.m */,
+				0BCC4A4522C7A41300B67F92 /* WeekViewCell.xib */,
 				0BECDBCA22C65B90009989A5 /* AppDelegate.h */,
 				0BECDBCB22C65B90009989A5 /* AppDelegate.m */,
-				0BECDBCD22C65B90009989A5 /* ViewController.h */,
-				0BECDBCE22C65B90009989A5 /* ViewController.m */,
 				0BECDBD022C65B90009989A5 /* Main.storyboard */,
 				0BECDBD322C65B94009989A5 /* Assets.xcassets */,
 				0BECDBD522C65B94009989A5 /* LaunchScreen.storyboard */,
 				0BECDBD822C65B94009989A5 /* Info.plist */,
 				0BECDBD922C65B94009989A5 /* main.m */,
+				0BD8334422C7D33700EDD45A /* UIColor+CustomColor.h */,
+				0BD8334522C7D33700EDD45A /* UIColor+CustomColor.m */,
 			);
 			path = WeekCalendar;
 			sourceTree = "<group>";
@@ -144,6 +160,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B3E1FED22C7A1A100B61B82 /* WeekCalendarViewController.xib in Resources */,
+				0BCC4A4722C7A41300B67F92 /* WeekViewCell.xib in Resources */,
 				0BECDBD722C65B94009989A5 /* LaunchScreen.storyboard in Resources */,
 				0BECDBD422C65B94009989A5 /* Assets.xcassets in Resources */,
 				0BECDBD222C65B90009989A5 /* Main.storyboard in Resources */,
@@ -157,9 +175,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0BECDBCF22C65B90009989A5 /* ViewController.m in Sources */,
+				0BCC4A4622C7A41300B67F92 /* WeekViewCell.m in Sources */,
 				0BECDBDA22C65B94009989A5 /* main.m in Sources */,
 				0BECDBCC22C65B90009989A5 /* AppDelegate.m in Sources */,
+				0BD8334622C7D33700EDD45A /* UIColor+CustomColor.m in Sources */,
+				0B3E1FEC22C7A1A100B61B82 /* WeekCalendarViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
