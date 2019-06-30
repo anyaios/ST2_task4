@@ -8,7 +8,7 @@
 #import <EventKit/EventKit.h>
 #import "WeekCalendarViewController.h"
 #import "WeekViewCell.h"
-#import "UIColor+CustomColor.h"
+#import "UIColor+CustomColor.h" 
 
 @interface WeekCalendarViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -24,6 +24,9 @@
     self.weekView.dataSource = self;
     [self setHeader];
     [self setWeekView];
+    
+    
+    _rusDayNames = @[@"ПН", @"ВТ", @"СР", @"ЧТ", @"ПТ", @"СБ", @"ВС"];
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -33,14 +36,38 @@
     return 1;
 }
 
+-(NSDate*)dateByAddingDays:(NSInteger)days toDate:(NSDate *)date {
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    [calendar setFirstWeekday:2];
+    NSDateComponents *components = [NSDateComponents new];
+    components.day = days;
+    return [calendar dateByAddingComponents: components toDate: date options: 0];
+}
+
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     WeekViewCell *weekcell = (WeekViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WeekViewCellReuseId" forIndexPath:indexPath];
+    
+    NSString *weekDayName = _rusDayNames[indexPath.row];
+    weekcell.day.text = weekDayName;
+    NSDate *date = [NSDate new];
+    date = [self dateByAddingDays:indexPath.row toDate: weekcell.currentDay];
+    
+    NSDateFormatter *objDateFormatter = [NSDateFormatter new];
+    [objDateFormatter setDateFormat:@"dd"];
+    weekcell.date.text = [objDateFormatter stringFromDate:date];
+   
+
     return weekcell;
 }
 
+
+
 - (void)setHeader{
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithHexString:@"0X037594"];
-    self.title = @"15 June 2019";
+    NSDateFormatter *objDateFormatter = [NSDateFormatter new];
+    [objDateFormatter setDateFormat:@"dd MMMM yyyy"];
+    self.title = [objDateFormatter stringFromDate:[NSDate date]];
+ 
     self.navigationController.navigationBar.layer.borderWidth = 0;
     self.navigationController.navigationBar.translucent = NO;
     [self.navigationController.navigationBar setTitleTextAttributes:

@@ -55,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0BAB750E22C82E4A003BA42F /* colors */ = {
+			isa = PBXGroup;
+			children = (
+				0BD8334422C7D33700EDD45A /* UIColor+CustomColor.h */,
+				0BD8334522C7D33700EDD45A /* UIColor+CustomColor.m */,
+			);
+			path = colors;
+			sourceTree = "<group>";
+		};
 		0BECDBBE22C65B90009989A5 = {
 			isa = PBXGroup;
 			children = (
@@ -88,8 +97,7 @@
 				0BECDBD522C65B94009989A5 /* LaunchScreen.storyboard */,
 				0BECDBD822C65B94009989A5 /* Info.plist */,
 				0BECDBD922C65B94009989A5 /* main.m */,
-				0BD8334422C7D33700EDD45A /* UIColor+CustomColor.h */,
-				0BD8334522C7D33700EDD45A /* UIColor+CustomColor.m */,
+				0BAB750E22C82E4A003BA42F /* colors */,
 			);
 			path = WeekCalendar;
 			sourceTree = "<group>";

@@ -13,6 +13,7 @@
 
 @interface WeekCalendarViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UICollectionView *weekView;
+@property (strong, nonatomic) NSArray *rusDayNames;
 
 @end
 
