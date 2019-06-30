@@ -46,15 +46,17 @@
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     WeekViewCell *weekcell = (WeekViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WeekViewCellReuseId" forIndexPath:indexPath];
-    
-    NSString *weekDayName = _rusDayNames[indexPath.row];
-    weekcell.day.text = weekDayName;
+
     NSDate *date = [NSDate new];
     date = [self dateByAddingDays:indexPath.row toDate: weekcell.currentDay];
     
     NSDateFormatter *objDateFormatter = [NSDateFormatter new];
     [objDateFormatter setDateFormat:@"dd"];
     weekcell.date.text = [objDateFormatter stringFromDate:date];
+    
+    NSDateFormatter *objDateNameFormatter = [NSDateFormatter new];
+    [objDateNameFormatter setDateFormat:@"EE"];
+    weekcell.day.text = [objDateNameFormatter stringFromDate:date];
    
 
     return weekcell;
