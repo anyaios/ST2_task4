@@ -76,15 +76,12 @@
     _weekView.dataSource = self;
     _timeView.dataSource = self;
     
-    
-    
+
     NSDateFormatter *objTitleFormatter = [NSDateFormatter new];
     [objTitleFormatter setDateFormat:@"d MMMM yyyy"];
     [objTitleFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
     self.title = [objTitleFormatter stringFromDate:[NSDate date]];
-    
-    
-    _rusDayNames = @[@"ПН", @"ВТ", @"СР", @"ЧТ", @"ПТ", @"СБ", @"ВС"];
+
     [self updateAuthorizationStatusToAccessEventStore];
 }
 
@@ -147,6 +144,10 @@
         [objDateNameFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
         [objDateNameFormatter setDateFormat:@"E"];
         weekcell.day.text = [[objDateNameFormatter stringFromDate:date] uppercaseString];
+        
+        weekcell.currentDay = date;
+        
+        weekcell.date.tag = indexPath.item;
  
         return weekcell;
     }
@@ -189,6 +190,22 @@
         CGSize size = CGSizeMake(_timeView.frame.size.width, _timeView.frame.size.height / 24);
         return size;
     }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    if (collectionView == _weekView){
+        
+        NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
+        WeekViewCell *cell = (WeekViewCell *)[_weekView cellForItemAtIndexPath:path];
+        
+        NSDateFormatter *objTitleFormatter = [NSDateFormatter new];
+        [objTitleFormatter setDateFormat:@"d MMMM yyyy"];
+        [objTitleFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
+        self.title = [objTitleFormatter stringFromDate:cell.currentDay];
+        
+        
+    }
+    
 }
 
 //- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {

@@ -12,7 +12,7 @@
 @interface WeekCalendarViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UICollectionView *weekView;
 @property (weak, nonatomic) IBOutlet UICollectionView *timeView;
-@property (strong, nonatomic) NSArray *rusDayNames;
+
 
 @property (strong, nonatomic) EKEventStore *eventStore;
 @property (nonatomic) BOOL isAccessToEventStoreGranted;
