@@ -6,10 +6,11 @@
 //  Copyright © 2019 Anna Ershova. All rights reserved.
 //
 #import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
 #import "WeekCalendarViewController.h"
 #import "WeekViewCell.h"
 #import "TimeViewCell.h"
-#import "UIColor+CustomColor.h" 
+#import "UIColor+CustomColor.h"
 
 @interface WeekCalendarViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -26,7 +27,7 @@
 
 - (void)updateAuthorizationStatusToAccessEventStore {
     // 2
-    EKAuthorizationStatus authorizationStatus = [EKEventStore authorizationStatusForEntityType:EKEntityTypeReminder];
+    EKAuthorizationStatus authorizationStatus = [EKEventStore authorizationStatusForEntityType:EKEntityTypeEvent];
     
     switch (authorizationStatus) {
             // 3
@@ -40,16 +41,18 @@
             // 4
         case EKAuthorizationStatusAuthorized:
             self.isAccessToEventStoreGranted = YES;
+            [self fenthEvents];
             [self.timeView reloadData];
             break;
             
             // 5
         case EKAuthorizationStatusNotDetermined: {
             __weak WeekCalendarViewController *weakSelf = self;
-            [self.eventStore requestAccessToEntityType:EKEntityTypeReminder
+            [self.eventStore requestAccessToEntityType:EKEntityTypeEvent
                                             completion:^(BOOL granted, NSError *error) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
                                                     weakSelf.isAccessToEventStoreGranted = granted;
+                                                    [self fenthEvents];
                                                     [weakSelf.timeView reloadData];
                                                 });
                                             }];
@@ -61,6 +64,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    _eventsToTimeView = [NSArray array];
     UINib *weekNib = [UINib nibWithNibName:@"WeekViewCell" bundle:nil];
     [self.weekView registerNib:weekNib forCellWithReuseIdentifier:@"WeekViewCellReuseId"];
     UINib *timeNib = [UINib nibWithNibName:@"TimeViewCell" bundle:nil]; 
@@ -82,7 +86,25 @@
     [objTitleFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
     self.title = [objTitleFormatter stringFromDate:[NSDate date]];
 
+
+
     [self updateAuthorizationStatusToAccessEventStore];
+}
+
+-(void)fenthEvents{
+    
+    NSDate *this_start = nil, *this_end = nil;
+    NSDate *date = [NSDate new];
+    [self startDate:&this_start andEndDate:&this_end ofWeekOn:date];
+    [self setEvents:this_start toDate:this_end];
+}
+
+
+-(void)setEvents:(NSDate *)startDate toDate:(NSDate *)endDate {
+   
+    NSPredicate *fetchCalendarEvents = [self.eventStore predicateForEventsWithStartDate:startDate endDate:endDate calendars:nil];
+    NSArray *allEvents = [self.eventStore eventsMatchingPredicate:fetchCalendarEvents];
+    NSLog(@" store is %@....", allEvents);
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
@@ -90,16 +112,17 @@
         return 7;
     }
     else {
-        return 1;
+        return 7;
     }
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     if (collectionView == _weekView){
         return 1;
     }else {
-        return 24;
+        return 1;
     }
 }
+
 
 -(NSDate *)dateByAddingDays:(NSInteger)days toDate:(NSDate *)date {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -155,6 +178,8 @@
     else  {
         
         TimeViewCell *timecell = (TimeViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"TimeViewCellReuseId" forIndexPath:indexPath];
+       // timecell.timeView = [_eventsToTimeView objectAtIndex:indexPath.item];
+        timecell.timeViewText.text = @"test";
         return timecell;
     }
     

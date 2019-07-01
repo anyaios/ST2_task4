@@ -11,6 +11,8 @@
 
 
 @interface TimeViewCell : UICollectionViewCell
+@property (weak, nonatomic) IBOutlet UIView *timeView;
+@property (weak, nonatomic) IBOutlet UILabel *timeViewText;
 
 @end
 

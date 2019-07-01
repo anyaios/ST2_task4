@@ -41,7 +41,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSRemindersUsageDescription</key>
-	<string>show me your events, please</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>show me your events in calendar</string>
 </dict>
 </plist>

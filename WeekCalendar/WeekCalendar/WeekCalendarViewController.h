@@ -15,6 +15,7 @@
 
 
 @property (strong, nonatomic) EKEventStore *eventStore;
+@property (nonatomic, strong) NSArray *eventsToTimeView;
 @property (nonatomic) BOOL isAccessToEventStoreGranted;
 @property (strong, nonatomic) NSMutableArray *todoItems;
 
