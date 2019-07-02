@@ -7,13 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
-
+#import <EventKit/EventKit.h>
 
 @interface WeekCalendarViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UICollectionView *weekView;
+@property (weak, nonatomic) IBOutlet UICollectionView *timeView;
 @property (strong, nonatomic) NSArray *rusDayNames;
+
+@property (strong, nonatomic) EKEventStore *eventStore;
+@property (nonatomic) BOOL isAccessToEventStoreGranted;
+@property (strong, nonatomic) NSMutableArray *todoItems;
 
 @end
 

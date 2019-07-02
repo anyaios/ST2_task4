@@ -25,11 +25,12 @@
         _redDayView.hidden = NO;
         _redDayView.backgroundColor = [UIColor colorWithHexString: @"0XFC6769"];
         _redDayView.layer.cornerRadius = _redDayView.frame.size.height / 2.0f;
-        
     } else {
         _redDayView.backgroundColor = [UIColor clearColor];
     }
 }
+
+
 
 
 @end
