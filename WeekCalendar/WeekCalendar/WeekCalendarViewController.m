@@ -288,19 +288,28 @@
         
         NSDateFormatter *formatter = [NSDateFormatter new];
         [formatter setDateFormat:@"dd"];
-        UILabel *eventLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 100)];
+        
+        
+        NSString *dateString = [NSString string];
+        
         
         for (EKEvent *i in _eventsToTimeView) {
-            NSString *dateString = [NSString string];
+            
             NSString *eventDateString = [NSString string];
             dateString = [formatter stringFromDate:cell.currentDay];
             eventDateString = [formatter stringFromDate:i.startDate];
+            
+//            double dat = [i.endDate timeIntervalSinceDate:i.startDate];
+//            NSLog(@"%f",dat);
+ 
+            UILabel *eventLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 100,100)];
+
             
             if (dateString == eventDateString) {
                 eventLabel.text = i.title;
                 eventLabel.layer.borderWidth = 1;
                 eventLabel.layer.backgroundColor = i.calendar.CGColor;
-                [timecell.timeView addSubview:eventLabel];
+                [timecell.timeView insertSubview:eventLabel atIndex:0];
                 NSLog(@"event --- %@", i);
             }
             
