@@ -21,9 +21,10 @@
     
 }
 
-//}
+
 - (void)setEvent:(EKEvent *)event {
     _event = event;
+    
 }
 - (void)addBottomBorderWithColor:(UIColor *)color andWidth:(CGFloat) borderWidth toView:(UIView *)view {
     UIView *border = [UIView new];

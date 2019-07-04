@@ -14,7 +14,7 @@
 
 
 @interface WeekCalendarViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
-
+@property (nonatomic, strong) NSDate *dateEvent;
 @end
 
 @implementation WeekCalendarViewController
@@ -65,12 +65,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
-
+    
+    
     _eventsToTimeView = [NSArray array];
     UINib *weekNib = [UINib nibWithNibName:@"WeekViewCell" bundle:nil];
     [self.weekView registerNib:weekNib forCellWithReuseIdentifier:@"WeekViewCellReuseId"];
-    UINib *timeNib = [UINib nibWithNibName:@"TimeViewCell" bundle:nil]; 
+    UINib *timeNib = [UINib nibWithNibName:@"TimeViewCell" bundle:nil];
     [self.timeView registerNib:timeNib forCellWithReuseIdentifier:@"TimeViewCellReuseId"];
     
     
@@ -84,12 +84,12 @@
     _weekView.dataSource = self;
     _timeView.dataSource = self;
     
-
+    
     NSDateFormatter *objTitleFormatter = [NSDateFormatter new];
     [objTitleFormatter setDateFormat:@"d MMMM yyyy"];
     [objTitleFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
     self.title = [objTitleFormatter stringFromDate:[NSDate date]];
-
+    
     _hoursForEvents = [self getTimeIntervals:@"00:00:00" andEndTime:@"23:59:00"];
     NSLog(@"asdas, %@", _hoursForEvents);
     
@@ -106,7 +106,7 @@
 
 
 -(void)setEvents:(NSDate *)startDate toDate:(NSDate *)endDate {
-   
+    
     NSPredicate *fetchCalendarEvents = [self.eventStore predicateForEventsWithStartDate:startDate endDate:endDate calendars:nil];
     NSArray *allEvents = [self.eventStore eventsMatchingPredicate:fetchCalendarEvents];
     NSLog(@" store is %@....", allEvents);
@@ -158,7 +158,7 @@
 
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
-
+    
     if (collectionView == _weekView) {
         WeekViewCell *weekcell = (WeekViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"WeekViewCellReuseId" forIndexPath:indexPath];
         NSDate *date = [NSDate new];
@@ -177,9 +177,9 @@
         weekcell.day.text = [[objDateNameFormatter stringFromDate:date] uppercaseString];
         
         weekcell.currentDay = date;
-        
         weekcell.date.tag = indexPath.item;
- 
+        
+        
         return weekcell;
     }
     
@@ -190,6 +190,14 @@
         timecell.min15.text = [NSString stringWithFormat:@"%@:15", _hoursForEvents[indexPath.item]];
         timecell.min30.text = [NSString stringWithFormat:@"%@:30", _hoursForEvents[indexPath.item]];
         timecell.min45.text = [NSString stringWithFormat:@"%@:45", _hoursForEvents[indexPath.item]];
+        
+        //        timecell.event = _eventsToTimeView[1];
+        //       // UIView *eventView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        //        UILabel *eventLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+        //        eventLabel.text = timecell.event.title;
+        //        eventLabel.layer.borderWidth = 1;
+        //        [timecell.timeView addSubview:eventLabel];
+        
         
         return timecell;
     }
@@ -253,14 +261,14 @@
         CGSize size = CGSizeMake(cellWidth, _weekView.frame.size.height);
         return size;
         
-    
+        
         
     } else {
-    
+        
         
         CGSize size = CGSizeMake(_timeView.frame.size.width, 120);
         return size;
-      
+        
     }
 }
 
@@ -270,6 +278,7 @@
         
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
         WeekViewCell *cell = (WeekViewCell *)[_weekView cellForItemAtIndexPath:path];
+        TimeViewCell *timecell = (TimeViewCell *)[_timeView cellForItemAtIndexPath:path];
         
         NSDateFormatter *objTitleFormatter = [NSDateFormatter new];
         [objTitleFormatter setDateFormat:@"d MMMM yyyy"];
@@ -277,7 +286,31 @@
         self.title = [objTitleFormatter stringFromDate:cell.currentDay];
         
         
+        NSDateFormatter *formatter = [NSDateFormatter new];
+        [formatter setDateFormat:@"dd"];
+        UILabel *eventLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 100)];
+        
+        for (EKEvent *i in _eventsToTimeView) {
+            NSString *dateString = [NSString string];
+            NSString *eventDateString = [NSString string];
+            dateString = [formatter stringFromDate:cell.currentDay];
+            eventDateString = [formatter stringFromDate:i.startDate];
+            
+            if (dateString == eventDateString) {
+                eventLabel.text = i.title;
+                eventLabel.layer.borderWidth = 1;
+                eventLabel.layer.backgroundColor = i.calendar.CGColor;
+                [timecell.timeView addSubview:eventLabel];
+                NSLog(@"event --- %@", i);
+            }
+            
+        }
+        
+        
     }
+    
+    
+    
     
 }
 
