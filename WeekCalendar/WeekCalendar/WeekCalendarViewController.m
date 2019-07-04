@@ -12,6 +12,7 @@
 #import "TimeViewCell.h"
 #import "UIColor+CustomColor.h"
 
+
 @interface WeekCalendarViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end
@@ -63,12 +64,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
 
     _eventsToTimeView = [NSArray array];
     UINib *weekNib = [UINib nibWithNibName:@"WeekViewCell" bundle:nil];
     [self.weekView registerNib:weekNib forCellWithReuseIdentifier:@"WeekViewCellReuseId"];
     UINib *timeNib = [UINib nibWithNibName:@"TimeViewCell" bundle:nil]; 
     [self.timeView registerNib:timeNib forCellWithReuseIdentifier:@"TimeViewCellReuseId"];
+    
     
     self.weekView.delegate = self;
     self.weekView.dataSource = self;
@@ -86,8 +90,9 @@
     [objTitleFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
     self.title = [objTitleFormatter stringFromDate:[NSDate date]];
 
-
-
+    _hoursForEvents = [self getTimeIntervals:@"00:00:00" andEndTime:@"23:59:00"];
+    NSLog(@"asdas, %@", _hoursForEvents);
+    
     [self updateAuthorizationStatusToAccessEventStore];
 }
 
@@ -105,14 +110,16 @@
     NSPredicate *fetchCalendarEvents = [self.eventStore predicateForEventsWithStartDate:startDate endDate:endDate calendars:nil];
     NSArray *allEvents = [self.eventStore eventsMatchingPredicate:fetchCalendarEvents];
     NSLog(@" store is %@....", allEvents);
+    _eventsToTimeView = allEvents;
 }
+
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     if (collectionView == _weekView) {
         return 7;
     }
     else {
-        return 7;
+        return 24;
     }
 }
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
@@ -122,6 +129,7 @@
         return 1;
     }
 }
+
 
 
 -(NSDate *)dateByAddingDays:(NSInteger)days toDate:(NSDate *)date {
@@ -178,13 +186,47 @@
     else  {
         
         TimeViewCell *timecell = (TimeViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"TimeViewCellReuseId" forIndexPath:indexPath];
-       // timecell.timeView = [_eventsToTimeView objectAtIndex:indexPath.item];
-        timecell.timeViewText.text = @"test";
+        timecell.timeViewText.text = [NSString stringWithFormat:@"%@:00", _hoursForEvents[indexPath.item]];
+        timecell.min15.text = [NSString stringWithFormat:@"%@:15", _hoursForEvents[indexPath.item]];
+        timecell.min30.text = [NSString stringWithFormat:@"%@:30", _hoursForEvents[indexPath.item]];
+        timecell.min45.text = [NSString stringWithFormat:@"%@:45", _hoursForEvents[indexPath.item]];
+        
         return timecell;
     }
     
 }
 
+-(NSMutableArray *)getTimeIntervals:(NSString *)startTime andEndTime:(NSString *)endTime {
+    NSMutableArray *hoursArray=[[NSMutableArray alloc]init];
+    NSDateFormatter *dateFormatter1=[[NSDateFormatter alloc]init];
+    [dateFormatter1 setDateFormat:@"HH:mm:ss"];
+    NSDate *startString = [dateFormatter1 dateFromString:startTime];
+    NSDate *endString = [dateFormatter1 dateFromString:endTime];
+    
+    NSTimeInterval interval = [endString timeIntervalSinceDate:startString];
+    NSInteger t1=(NSInteger)interval;
+    NSInteger hours=t1/3600;
+    
+    for (int i=0;i<=hours; i++)
+    {
+        NSString *str;
+        NSDate *plusOneHour ;
+        if(i==0)
+            plusOneHour=startString;
+        else
+            plusOneHour = [startString dateByAddingTimeInterval:60.0f * 60.0f];
+        
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:plusOneHour];
+        NSInteger hour = [components hour];
+        str=hour>=10?@"":@"0";
+        NSString *string = [NSString stringWithFormat:@"%@%ld", str,(long)hour];
+        startString=plusOneHour;
+        [hoursArray addObject:string];
+    }
+    
+    return hoursArray;
+}
 
 
 - (void)setHeader{
@@ -211,11 +253,17 @@
         CGSize size = CGSizeMake(cellWidth, _weekView.frame.size.height);
         return size;
         
+    
+        
     } else {
-        CGSize size = CGSizeMake(_timeView.frame.size.width, _timeView.frame.size.height / 24);
+    
+        
+        CGSize size = CGSizeMake(_timeView.frame.size.width, 120);
         return size;
+      
     }
 }
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == _weekView){
@@ -233,8 +281,5 @@
     
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    return CGSizeMake(CGRectGetWidth(self.weekView.frame) / 6, CGRectGetHeight(self.weekView.frame));
-//}
 
 @end
