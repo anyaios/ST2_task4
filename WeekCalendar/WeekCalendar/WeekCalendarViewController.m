@@ -299,16 +299,20 @@
             dateString = [formatter stringFromDate:cell.currentDay];
             eventDateString = [formatter stringFromDate:i.startDate];
             
-//            double dat = [i.endDate timeIntervalSinceDate:i.startDate];
-//            NSLog(@"%f",dat);
+            double size = [i.endDate timeIntervalSinceDate:i.startDate];
+            NSLog(@"%f",size);
  
-            UILabel *eventLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 0, 100,100)];
-
-            
+            UILabel *eventLabel = [UILabel new];
+            if (i.isAllDay) {
+                [eventLabel setFrame:CGRectMake(60, 0, 200, 30)];
+            } else {
+                [eventLabel setFrame:CGRectMake(60, 0, 100, 100)];
+            }
             if (dateString == eventDateString) {
                 eventLabel.text = i.title;
                 eventLabel.layer.borderWidth = 1;
                 eventLabel.layer.backgroundColor = i.calendar.CGColor;
+                eventLabel.clipsToBounds = NO;
                 [timecell.timeView insertSubview:eventLabel atIndex:0];
                 NSLog(@"event --- %@", i);
             }
