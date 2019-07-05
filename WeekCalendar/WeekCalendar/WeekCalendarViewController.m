@@ -15,6 +15,7 @@
 
 @interface WeekCalendarViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, strong) NSDate *dateEvent;
+@property float sizeOf15min;
 @end
 
 @implementation WeekCalendarViewController
@@ -91,7 +92,6 @@
     self.title = [objTitleFormatter stringFromDate:[NSDate date]];
     
     _hoursForEvents = [self getTimeIntervals:@"00:00:00" andEndTime:@"23:59:00"];
-    NSLog(@"asdas, %@", _hoursForEvents);
     
     [self updateAuthorizationStatusToAccessEventStore];
 }
@@ -191,14 +191,6 @@
         timecell.min30.text = [NSString stringWithFormat:@"%@:30", _hoursForEvents[indexPath.item]];
         timecell.min45.text = [NSString stringWithFormat:@"%@:45", _hoursForEvents[indexPath.item]];
         
-        //        timecell.event = _eventsToTimeView[1];
-        //       // UIView *eventView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        //        UILabel *eventLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
-        //        eventLabel.text = timecell.event.title;
-        //        eventLabel.layer.borderWidth = 1;
-        //        [timecell.timeView addSubview:eventLabel];
-        
-        
         return timecell;
     }
     
@@ -272,6 +264,15 @@
     }
 }
 
+- (double)secondsForTimeString:(NSString *)string {
+    
+    NSArray *components = [string componentsSeparatedByString:@":"];
+    NSInteger hours   = [[components objectAtIndex:0] integerValue];
+    NSInteger minutes = [[components objectAtIndex:1] integerValue];
+    NSInteger seconds = [[components objectAtIndex:2] integerValue];
+    return (hours * 60 * 60) + (minutes * 60) + seconds;
+}
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     if (collectionView == _weekView){
@@ -288,33 +289,42 @@
         
         NSDateFormatter *formatter = [NSDateFormatter new];
         [formatter setDateFormat:@"dd"];
-        
-        
         NSString *dateString = [NSString string];
+        
+        NSDateFormatter *hourFormatter = [NSDateFormatter new];
+        [hourFormatter setDateFormat:@"hh:mm:ss"];
+        NSString *hourString = [NSString string];
+        
         
         
         for (EKEvent *i in _eventsToTimeView) {
             
             NSString *eventDateString = [NSString string];
+            _sizeOf15min = timecell.timeViewText.frame.size.height;
             dateString = [formatter stringFromDate:cell.currentDay];
             eventDateString = [formatter stringFromDate:i.startDate];
             
             double size = [i.endDate timeIntervalSinceDate:i.startDate];
-            NSLog(@"%f",size);
- 
+            hourString = [hourFormatter stringFromDate:i.startDate];
+            double hoursize = [self secondsForTimeString: hourString];
+            NSLog(@"%f hoursize is... ", hoursize);
+            NSLog(@"%f", size);
+            
             UILabel *eventLabel = [UILabel new];
             if (i.isAllDay) {
                 [eventLabel setFrame:CGRectMake(60, 0, 200, 30)];
             } else {
-                [eventLabel setFrame:CGRectMake(60, 0, 100, 100)];
+                [eventLabel setFrame:CGRectMake(60, hoursize * _sizeOf15min / 900, _timeView.frame.size.width - 65, size * _sizeOf15min / 900)];
             }
+            
             if (dateString == eventDateString) {
                 eventLabel.text = i.title;
-                eventLabel.layer.borderWidth = 1;
+                eventLabel.layer.borderWidth = 0;
                 eventLabel.layer.backgroundColor = i.calendar.CGColor;
                 eventLabel.clipsToBounds = NO;
-                [timecell.timeView insertSubview:eventLabel atIndex:0];
-                NSLog(@"event --- %@", i);
+                eventLabel.layer.opacity = 0.5;
+                eventLabel.layer.cornerRadius = 3;
+                [_timeView insertSubview:eventLabel atIndex:0];
             }
             
         }

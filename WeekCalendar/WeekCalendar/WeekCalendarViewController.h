@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL isAccessToEventStoreGranted;
 
 @property (nonatomic, strong) NSArray *hoursForEvents;
+@property (nonatomic, strong) UILabel *labelEbent;
 
 @end
 
