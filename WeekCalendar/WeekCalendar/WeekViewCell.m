@@ -16,6 +16,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     _currentDay = [NSDate date];
+    _labelEvent = [UIView new];
 }
 
 - (void)setSelected:(BOOL)selected{

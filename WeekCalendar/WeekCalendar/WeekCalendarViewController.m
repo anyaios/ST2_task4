@@ -109,7 +109,7 @@
     
     NSPredicate *fetchCalendarEvents = [self.eventStore predicateForEventsWithStartDate:startDate endDate:endDate calendars:nil];
     NSArray *allEvents = [self.eventStore eventsMatchingPredicate:fetchCalendarEvents];
-    NSLog(@" store is %@....", allEvents);
+  //  NSLog(@" store is %@....", allEvents);
     _eventsToTimeView = allEvents;
 }
 
@@ -279,63 +279,73 @@
         
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
         WeekViewCell *cell = (WeekViewCell *)[_weekView cellForItemAtIndexPath:path];
-        TimeViewCell *timecell = (TimeViewCell *)[_timeView cellForItemAtIndexPath:path];
+     //   TimeViewCell *timecell = (TimeViewCell *)[_timeView cellForItemAtIndexPath:path];
         
         NSDateFormatter *objTitleFormatter = [NSDateFormatter new];
         [objTitleFormatter setDateFormat:@"d MMMM yyyy"];
         [objTitleFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
         self.title = [objTitleFormatter stringFromDate:cell.currentDay];
         
-        
-        NSDateFormatter *formatter = [NSDateFormatter new];
-        [formatter setDateFormat:@"dd"];
-        NSString *dateString = [NSString string];
-        
-        NSDateFormatter *hourFormatter = [NSDateFormatter new];
-        [hourFormatter setDateFormat:@"hh:mm:ss"];
-        NSString *hourString = [NSString string];
-        
-        
-        
-        for (EKEvent *i in _eventsToTimeView) {
-            
-            NSString *eventDateString = [NSString string];
-            _sizeOf15min = timecell.timeViewText.frame.size.height;
-            dateString = [formatter stringFromDate:cell.currentDay];
-            eventDateString = [formatter stringFromDate:i.startDate];
-            
-            double size = [i.endDate timeIntervalSinceDate:i.startDate];
-            hourString = [hourFormatter stringFromDate:i.startDate];
-            double hoursize = [self secondsForTimeString: hourString];
-            NSLog(@"%f hoursize is... ", hoursize);
-            NSLog(@"%f", size);
-            
-            UILabel *eventLabel = [UILabel new];
-            if (i.isAllDay) {
-                [eventLabel setFrame:CGRectMake(60, 0, 200, 30)];
-            } else {
-                [eventLabel setFrame:CGRectMake(60, hoursize * _sizeOf15min / 900, _timeView.frame.size.width - 65, size * _sizeOf15min / 900)];
-            }
-            
-            if (dateString == eventDateString) {
-                eventLabel.text = i.title;
-                eventLabel.layer.borderWidth = 0;
-                eventLabel.layer.backgroundColor = i.calendar.CGColor;
-                eventLabel.clipsToBounds = NO;
-                eventLabel.layer.opacity = 0.5;
-                eventLabel.layer.cornerRadius = 3;
-                [_timeView insertSubview:eventLabel atIndex:0];
-            }
-            
-        }
-        
-        
+        [self setEventswithIndexPath:path];
+        NSLog(@"selecting");
+    
     }
-    
-    
-    
+}
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"deselecting");
+
     
 }
 
+-(void)setEventswithIndexPath:(NSIndexPath *)indexPath{
+    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
+    WeekViewCell *cell = (WeekViewCell *)[_weekView cellForItemAtIndexPath:path];
+    TimeViewCell *timecell = (TimeViewCell *)[_timeView cellForItemAtIndexPath:path];
+    
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"dd"];
+    NSString *dateString = [NSString string];
+    
+    NSDateFormatter *hourFormatter = [NSDateFormatter new];
+    [hourFormatter setDateFormat:@"hh:mm:ss"];
+    NSString *hourString = [NSString string];
+    
+    
+    for (EKEvent *i in _eventsToTimeView) {
+        
+        NSString *eventDateString = [NSString string];
+        _sizeOf15min = timecell.timeViewText.frame.size.height;
+        dateString = [formatter stringFromDate:cell.currentDay];
+        eventDateString = [formatter stringFromDate:i.startDate];
+        
+        double size = [i.endDate timeIntervalSinceDate:i.startDate];
+        hourString = [hourFormatter stringFromDate:i.startDate];
+        double hoursize = [self secondsForTimeString: hourString];
+//        NSLog(@"%f hoursize is... ", hoursize);
+//        NSLog(@"%f", size);
+//
+  
+        UILabel *eventLabel = [UILabel new];
+        if (i.isAllDay) {
+            [eventLabel setFrame:CGRectMake(60, 0, 200, 30)];
+        } else {
+            [eventLabel setFrame:CGRectMake(60, hoursize * _sizeOf15min / 900, _timeView.frame.size.width - 65, size * _sizeOf15min / 900)];
+        }
+        
+        if (dateString == eventDateString) {
+            eventLabel.text = i.title;
+            eventLabel.layer.borderWidth = 0;
+            eventLabel.layer.backgroundColor = i.calendar.CGColor;
+            eventLabel.clipsToBounds = NO;
+            eventLabel.layer.opacity = 0.5;
+            eventLabel.layer.cornerRadius = 3;
+          
+            [_timeView insertSubview:eventLabel atIndex:0];
+        }
+        
+    }
+    
+}
 
 @end
