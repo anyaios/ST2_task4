@@ -287,14 +287,16 @@
         self.title = [objTitleFormatter stringFromDate:cell.currentDay];
         
         [self setEventswithIndexPath:path];
+        [_timeView insertSubview: cell.labelEvent atIndex:0];
         NSLog(@"selecting");
     
     }
 }
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"deselecting");
-
-    
+    NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
+    WeekViewCell *cell = (WeekViewCell *)[_weekView cellForItemAtIndexPath:path];
+    [cell.labelEvent removeFromSuperview];
 }
 
 -(void)setEventswithIndexPath:(NSIndexPath *)indexPath{
@@ -310,7 +312,7 @@
     NSDateFormatter *hourFormatter = [NSDateFormatter new];
     [hourFormatter setDateFormat:@"hh:mm:ss"];
     NSString *hourString = [NSString string];
-    
+    _helpLabel = [UILabel new];
     
     for (EKEvent *i in _eventsToTimeView) {
         
@@ -340,12 +342,13 @@
             eventLabel.clipsToBounds = NO;
             eventLabel.layer.opacity = 0.5;
             eventLabel.layer.cornerRadius = 3;
-          
-            [_timeView insertSubview:eventLabel atIndex:0];
+            _helpLabel = eventLabel;
         }
         
+        [cell.labelEvent addSubview:_helpLabel];
+        
     }
-    
+   
 }
 
 @end
