@@ -17,6 +17,8 @@
     [super awakeFromNib];
     _currentDay = [NSDate date];
     _labelEvent = [UIView new];
+    
+
 }
 
 - (void)setSelected:(BOOL)selected{
@@ -28,6 +30,7 @@
         _redDayView.layer.cornerRadius = _redDayView.frame.size.height / 2.0f;
     } else {
         _redDayView.backgroundColor = [UIColor clearColor];
+
     }
 }
 

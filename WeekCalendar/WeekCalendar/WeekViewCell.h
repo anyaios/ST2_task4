@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *redDayView;
 @property (strong, nonatomic) NSDate *currentDay;
 @property (nonatomic, strong) UIView *labelEvent;
+@property (weak, nonatomic) IBOutlet UIView *indicator;
 
 @end
 

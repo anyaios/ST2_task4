@@ -42,6 +42,11 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view hidden="YES" contentMode="scaleAspectFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="du9-jV-aiq">
+                                <rect key="frame" x="18" y="36" width="4" height="4"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -52,6 +57,7 @@
             <connections>
                 <outlet property="date" destination="b38-dE-oPf" id="9gd-hI-qT1"/>
                 <outlet property="day" destination="dWb-a2-xNS" id="p1D-zr-98f"/>
+                <outlet property="indicator" destination="du9-jV-aiq" id="iFQ-nL-3W8"/>
                 <outlet property="redDayView" destination="0jZ-uG-Gsz" id="rue-sO-0o6"/>
                 <outlet property="selectedDay" destination="NhR-aN-DV1" id="AcH-VO-Rxq"/>
             </connections>

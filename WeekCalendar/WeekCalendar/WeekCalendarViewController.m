@@ -16,6 +16,7 @@
 @interface WeekCalendarViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 @property (nonatomic, strong) NSDate *dateEvent;
 @property float sizeOf15min;
+@property long intTag;
 @end
 
 @implementation WeekCalendarViewController
@@ -92,7 +93,6 @@
     self.title = [objTitleFormatter stringFromDate:[NSDate date]];
     
     _hoursForEvents = [self getTimeIntervals:@"00:00:00" andEndTime:@"23:59:00"];
-    
     [self updateAuthorizationStatusToAccessEventStore];
 }
 
@@ -109,7 +109,7 @@
     
     NSPredicate *fetchCalendarEvents = [self.eventStore predicateForEventsWithStartDate:startDate endDate:endDate calendars:nil];
     NSArray *allEvents = [self.eventStore eventsMatchingPredicate:fetchCalendarEvents];
-  //  NSLog(@" store is %@....", allEvents);
+    //  NSLog(@" store is %@....", allEvents);
     _eventsToTimeView = allEvents;
 }
 
@@ -178,7 +178,17 @@
         
         weekcell.currentDay = date;
         weekcell.date.tag = indexPath.item;
+        _intTag = indexPath.item;
         
+        
+        NSString *eventDateString = [NSString string];
+        for (EKEvent *i in _eventsToTimeView) {
+            eventDateString = [objDateFormatter stringFromDate:i.startDate];
+            if (eventDateString == weekcell.date.text){
+                [weekcell.indicator setHidden:NO];
+                weekcell.indicator.layer.cornerRadius = weekcell.indicator.frame.size.height / 2;
+            }
+        }
         
         return weekcell;
     }
@@ -244,6 +254,8 @@
     self.weekView.backgroundColor = [UIColor colorWithHexString:@"0X037594"];
     self.weekView.layer.borderWidth = 0;
 }
+
+
 -(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (collectionView == _weekView) {
@@ -253,10 +265,7 @@
         CGSize size = CGSizeMake(cellWidth, _weekView.frame.size.height);
         return size;
         
-        
-        
     } else {
-        
         
         CGSize size = CGSizeMake(_timeView.frame.size.width, 120);
         return size;
@@ -279,7 +288,7 @@
         
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
         WeekViewCell *cell = (WeekViewCell *)[_weekView cellForItemAtIndexPath:path];
-     //   TimeViewCell *timecell = (TimeViewCell *)[_timeView cellForItemAtIndexPath:path];
+        //   TimeViewCell *timecell = (TimeViewCell *)[_timeView cellForItemAtIndexPath:path];
         
         NSDateFormatter *objTitleFormatter = [NSDateFormatter new];
         [objTitleFormatter setDateFormat:@"d MMMM yyyy"];
@@ -289,9 +298,10 @@
         [self setEventswithIndexPath:path];
         [_timeView insertSubview: cell.labelEvent atIndex:0];
         NSLog(@"selecting");
-    
+        
     }
 }
+
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"deselecting");
     NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
@@ -324,10 +334,10 @@
         double size = [i.endDate timeIntervalSinceDate:i.startDate];
         hourString = [hourFormatter stringFromDate:i.startDate];
         double hoursize = [self secondsForTimeString: hourString];
-//        NSLog(@"%f hoursize is... ", hoursize);
-//        NSLog(@"%f", size);
-//
-  
+        //        NSLog(@"%f hoursize is... ", hoursize);
+        //        NSLog(@"%f", size);
+        //
+        
         UILabel *eventLabel = [UILabel new];
         if (i.isAllDay) {
             [eventLabel setFrame:CGRectMake(60, 0, 200, 30)];
@@ -342,13 +352,14 @@
             eventLabel.clipsToBounds = NO;
             eventLabel.layer.opacity = 0.5;
             eventLabel.layer.cornerRadius = 3;
-            _helpLabel = eventLabel;
+            // _helpLabel = eventLabel;
         }
         
-        [cell.labelEvent addSubview:_helpLabel];
+        [cell.labelEvent addSubview:eventLabel];
         
     }
-   
+    
 }
+
 
 @end
