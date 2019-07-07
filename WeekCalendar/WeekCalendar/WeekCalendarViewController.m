@@ -200,6 +200,18 @@
         timecell.min15.text = [NSString stringWithFormat:@"%@:15", _hoursForEvents[indexPath.item]];
         timecell.min30.text = [NSString stringWithFormat:@"%@:30", _hoursForEvents[indexPath.item]];
         timecell.min45.text = [NSString stringWithFormat:@"%@:45", _hoursForEvents[indexPath.item]];
+        [timecell.timeViewText setTextColor:[UIColor colorWithHexString:@"0X383838"]];
+        [timecell.min15 setTextColor:[UIColor colorWithHexString:@"0X383838"]];
+        [timecell.min30 setTextColor:[UIColor colorWithHexString:@"0X383838"]];
+        [timecell.min45 setTextColor:[UIColor colorWithHexString:@"0X383838"]];
+        
+        UIColor *tintColor = [UIColor colorWithHexString:@"0XC7C7C8"];
+        timecell.timeViewText.tintColor = tintColor;
+        timecell.min15.tintColor = tintColor;
+        timecell.min30.tintColor = tintColor;
+        timecell.min45.tintColor = tintColor;
+        
+        [self setRedLine:timecell.timeViewText];
         
         return timecell;
     }
@@ -298,7 +310,7 @@
         [self setEventswithIndexPath:path];
         [_timeView insertSubview: cell.labelEvent atIndex:0];
         NSLog(@"selecting");
-        
+     
     }
 }
 
@@ -307,6 +319,7 @@
     NSIndexPath *path = [NSIndexPath indexPathForRow:indexPath.item inSection:0];
     WeekViewCell *cell = (WeekViewCell *)[_weekView cellForItemAtIndexPath:path];
     [cell.labelEvent removeFromSuperview];
+    
 }
 
 -(void)setEventswithIndexPath:(NSIndexPath *)indexPath{
@@ -322,7 +335,6 @@
     NSDateFormatter *hourFormatter = [NSDateFormatter new];
     [hourFormatter setDateFormat:@"hh:mm:ss"];
     NSString *hourString = [NSString string];
-    _helpLabel = [UILabel new];
     
     for (EKEvent *i in _eventsToTimeView) {
         
@@ -358,6 +370,28 @@
         [cell.labelEvent addSubview:eventLabel];
         
     }
+    
+}
+-(void)setRedLine: (UILabel*)timecell{
+    [_timeView layoutIfNeeded];
+    NSDateFormatter *hourFormatter = [NSDateFormatter new];
+    [hourFormatter setDateFormat:@"hh:mm:ss"];
+    NSDateFormatter *linetime = [NSDateFormatter new];
+    [linetime setDateFormat:@"hh:mm"];
+    
+    NSString *hourString = [NSString string];
+    hourString = [hourFormatter stringFromDate:[NSDate date]];
+    double hoursize = [self secondsForTimeString: hourString];
+    UIView *lineView = [UIView new];
+    UILabel *time = [UILabel new];
+    time.text = [linetime stringFromDate:[NSDate date]];
+    [time setFrame:CGRectMake(-50,-timecell.frame.size.height / 2, timecell.frame.size.width, timecell.frame.size.height)];
+    [time setFont:[UIFont systemFontOfSize:15]];
+    [time setTextColor:[UIColor colorWithHexString:@"0X383838"]];
+    [lineView setFrame: CGRectMake(60, hoursize * timecell.frame.size.height / 900, _timeView.frame.size.width, 1)];
+    lineView.backgroundColor = UIColor.redColor;
+    [lineView insertSubview:time atIndex:0];
+    [_timeView addSubview:lineView];
     
 }
 

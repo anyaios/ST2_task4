@@ -16,7 +16,6 @@
 @property (nonatomic, strong) NSArray *eventsToTimeView;
 @property (nonatomic) BOOL isAccessToEventStoreGranted;
 @property (nonatomic, strong) NSArray *hoursForEvents;
-@property (nonatomic, strong) UILabel *helpLabel;
 @end
 
 
