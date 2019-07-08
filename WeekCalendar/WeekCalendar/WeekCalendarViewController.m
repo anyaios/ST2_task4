@@ -389,6 +389,10 @@
     [_timeView addSubview:lineView];
     
 }
-
-
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+}
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+}
 @end
