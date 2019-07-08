@@ -205,11 +205,6 @@
         [timecell.min30 setTextColor:[UIColor colorWithHexString:@"0X383838"]];
         [timecell.min45 setTextColor:[UIColor colorWithHexString:@"0X383838"]];
         
-        UIColor *tintColor = [UIColor colorWithHexString:@"0XC7C7C8"];
-        timecell.timeViewText.tintColor = tintColor;
-        timecell.min15.tintColor = tintColor;
-        timecell.min30.tintColor = tintColor;
-        timecell.min45.tintColor = tintColor;
         
         [self setRedLine:timecell.timeViewText];
         
@@ -385,7 +380,7 @@
     UIView *lineView = [UIView new];
     UILabel *time = [UILabel new];
     time.text = [linetime stringFromDate:[NSDate date]];
-    [time setFrame:CGRectMake(-50,-timecell.frame.size.height / 2, timecell.frame.size.width, timecell.frame.size.height)];
+    [time setFrame:CGRectMake(-60,-timecell.frame.size.height / 2, timecell.frame.size.width, timecell.frame.size.height)];
     [time setFont:[UIFont systemFontOfSize:15]];
     [time setTextColor:[UIColor colorWithHexString:@"0X383838"]];
     [lineView setFrame: CGRectMake(60, hoursize * timecell.frame.size.height / 900, _timeView.frame.size.width, 1)];

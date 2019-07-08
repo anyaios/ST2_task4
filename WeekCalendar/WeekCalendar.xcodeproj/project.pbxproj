@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0B3E1FEC22C7A1A100B61B82 /* WeekCalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B3E1FEA22C7A1A100B61B82 /* WeekCalendarViewController.m */; };
 		0B3E1FED22C7A1A100B61B82 /* WeekCalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B3E1FEB22C7A1A100B61B82 /* WeekCalendarViewController.xib */; };
+		0B45886922D2BAF500A164CC /* DashedLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B45886822D2BAF500A164CC /* DashedLine.m */; };
 		0B749E3322C85E9500ECF189 /* TimeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B749E3122C85E9500ECF189 /* TimeViewCell.m */; };
 		0B749E3422C85E9500ECF189 /* TimeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0B749E3222C85E9500ECF189 /* TimeViewCell.xib */; };
 		0BCC4A4622C7A41300B67F92 /* WeekViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BCC4A4422C7A41300B67F92 /* WeekViewCell.m */; };
@@ -27,6 +28,8 @@
 		0B3E1FE922C7A1A100B61B82 /* WeekCalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeekCalendarViewController.h; sourceTree = "<group>"; };
 		0B3E1FEA22C7A1A100B61B82 /* WeekCalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeekCalendarViewController.m; sourceTree = "<group>"; };
 		0B3E1FEB22C7A1A100B61B82 /* WeekCalendarViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekCalendarViewController.xib; sourceTree = "<group>"; };
+		0B45886722D2BAF500A164CC /* DashedLine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DashedLine.h; sourceTree = "<group>"; };
+		0B45886822D2BAF500A164CC /* DashedLine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DashedLine.m; sourceTree = "<group>"; };
 		0B749E3022C85E9500ECF189 /* TimeViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeViewCell.h; sourceTree = "<group>"; };
 		0B749E3122C85E9500ECF189 /* TimeViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeViewCell.m; sourceTree = "<group>"; };
 		0B749E3222C85E9500ECF189 /* TimeViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TimeViewCell.xib; sourceTree = "<group>"; };
@@ -94,6 +97,8 @@
 				0B3E1FEB22C7A1A100B61B82 /* WeekCalendarViewController.xib */,
 				0B749E3022C85E9500ECF189 /* TimeViewCell.h */,
 				0B749E3122C85E9500ECF189 /* TimeViewCell.m */,
+				0B45886722D2BAF500A164CC /* DashedLine.h */,
+				0B45886822D2BAF500A164CC /* DashedLine.m */,
 				0B749E3222C85E9500ECF189 /* TimeViewCell.xib */,
 				0BCC4A4322C7A41300B67F92 /* WeekViewCell.h */,
 				0BCC4A4422C7A41300B67F92 /* WeekViewCell.m */,
@@ -196,6 +201,7 @@
 				0B749E3322C85E9500ECF189 /* TimeViewCell.m in Sources */,
 				0BECDBDA22C65B94009989A5 /* main.m in Sources */,
 				0BECDBCC22C65B90009989A5 /* AppDelegate.m in Sources */,
+				0B45886922D2BAF500A164CC /* DashedLine.m in Sources */,
 				0BD8334622C7D33700EDD45A /* UIColor+CustomColor.m in Sources */,
 				0B3E1FEC22C7A1A100B61B82 /* WeekCalendarViewController.m in Sources */,
 			);

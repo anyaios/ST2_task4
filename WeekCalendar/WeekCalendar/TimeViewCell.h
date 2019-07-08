@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h>
-
+#import "DashedLine.h"
 
 
 @interface TimeViewCell : UICollectionViewCell
