@@ -328,7 +328,7 @@
     NSString *dateString = [NSString string];
     
     NSDateFormatter *hourFormatter = [NSDateFormatter new];
-    [hourFormatter setDateFormat:@"hh:mm:ss"];
+    [hourFormatter setDateFormat:@"HH:mm:ss"];
     NSString *hourString = [NSString string];
     
     for (EKEvent *i in _eventsToTimeView) {
@@ -350,6 +350,7 @@
             [eventLabel setFrame:CGRectMake(60, 0, 200, 30)];
         } else {
             [eventLabel setFrame:CGRectMake(60, hoursize * _sizeOf15min / 900, _timeView.frame.size.width - 65, size * _sizeOf15min / 900)];
+            
         }
         
         if (dateString == eventDateString) {
@@ -370,9 +371,12 @@
 -(void)setRedLine: (UILabel*)timecell{
     [_timeView layoutIfNeeded];
     NSDateFormatter *hourFormatter = [NSDateFormatter new];
-    [hourFormatter setDateFormat:@"hh:mm:ss"];
+    [hourFormatter setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
+    [hourFormatter setDateFormat:@"HH:mm:ss"];
+    
     NSDateFormatter *linetime = [NSDateFormatter new];
-    [linetime setDateFormat:@"hh:mm"];
+    [linetime setLocale: [NSLocale localeWithLocaleIdentifier: @"ru_RU"]];
+    [linetime setDateFormat:@"HH:mm"];
     
     NSString *hourString = [NSString string];
     hourString = [hourFormatter stringFromDate:[NSDate date]];
