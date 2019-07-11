@@ -106,7 +106,7 @@
 
 -(NSDate *)dateByAddingDays:(NSInteger)days toDate:(NSDate *)date {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    [calendar setFirstWeekday:1];
+    [calendar setFirstWeekday:2];
     NSDateComponents *components = [NSDateComponents new];
     components.day = days;
     return [calendar dateByAddingComponents: components toDate: date options: 0];
@@ -116,6 +116,7 @@
     NSDate *startDate = nil;
     NSTimeInterval duration = 0;
     NSCalendar *calendar =  [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    [calendar setLocale: [NSLocale localeWithLocaleIdentifier:[[NSLocale preferredLanguages] objectAtIndex:0]]];
     BOOL b = [calendar rangeOfUnit:NSCalendarUnitWeekOfMonth startDate:&startDate interval:&duration forDate:date];
     if(! b){
         *start = nil;
